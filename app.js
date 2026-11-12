@@ -1,5 +1,5 @@
 import express from "express";
-
+import connectToDatabase from "./database/mongodb.js";
 import { PORT } from "./config/env.js";
 
 import userRouter from "./routes/user.routes.js";
@@ -16,6 +16,9 @@ app.get("/", (req, res) => {
   res.send("Hello there");
 });
 
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+app.listen(PORT, async () => {
+  console.log(`Listening on port ${PORT}`);
+  await connectToDatabase();
+});
 
 export default app;
